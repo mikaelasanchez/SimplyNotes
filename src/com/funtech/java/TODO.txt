@@ -1,0 +1,68 @@
+Key:
+[*] means to do
+[-] means done
+
+{General}
+
+* create README.md
+* switch to troubleshooting mode
+
+{Functions}
+
+getNotes():
+- opens file
+- reads file
+- separate with delimiter
+- put in arrayList
+- add to number of notes var for each note
+* use regex to extract note info
+* turn into notes files
+* add to notes arrayList
+- creates notes.txt when not available
+- handle exceptions
+* make sure it works with all other functions
+
+addNewNote():
+- gets note information from user
+- shows preview of note
+- asks for confirmation
+- adds note to arrayList of notes
+- saves the note to txt file using Note.save()
+
+deleteNote():
+* gets notes from getNotes()
+* display the available notes
+* ask for user to choose
+* ask for confirmation
+* remove from the notes arrayList
+* call Note.delete() on the note
+* decrease number of notes
+
+readNote():
+* gets notes from getNotes()
+* display the available notes
+* ask for user to choose
+* displays all information about note (perhaps use preview from addNewNote())
+
+sortNotes():
+* gets notes from getNotes()
+* display the available notes
+* say they're being sorted
+* display sorted notes
+
+
+{Note Class}
+
+Note.toString():
+- return title of note
+
+Note.save():
+* use note information for saving to txt file
+* write to notes.txt file
+
+Note.delete():
+* find corresponding note info (perhaps search for the string surrounded by the tag)
+* remove all info by replacing data with empty string
+
+Note.read():
+* return content of note
