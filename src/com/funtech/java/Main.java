@@ -4,10 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ *  Note taking console application created by Mikaela Sanchez
+ *  For the Funtech Interview process
+ */
+
 public class Main {
     // Initialises the variables for the number of notes, list of note names, user input and input scanner
     private static int noOfNotes;
-    private static List<String> notes = new ArrayList<>();
+    private static List<Note> notes = new ArrayList<>();
     private static Scanner input = new Scanner(System.in);
     private static String choice;
 
@@ -22,7 +27,7 @@ public class Main {
         // Checks if there are any notes. If there are, list them and call the menu.
         if(noOfNotes>0){
             println("Notes:");
-            for (String note:notes){
+            for (Note note:notes){
                 println(note!=null ? note:"-"); // If there is no note, display it as "-"
             }
             println("");
@@ -89,28 +94,28 @@ public class Main {
 
             // Checks if the notes file exists.
             if(notesFile.isFile()) {
+
+                // If it does exist, read the file and separate each note
                 Scanner fileScanner = new Scanner(notesFile);
                 fileScanner.useDelimiter("--end of note--");
 
                 List<String> notesFromTxt = new ArrayList<>();
 
+                // Add every note to the notesFromTxt arraylist and add 1 to number of notes
                 if(fileScanner.hasNext()){
                     notesFromTxt.add(fileScanner.next());
-                }
-
-                for(String note:notesFromTxt){
-                    println(note);
-                    noOfNotes+=1;
+                    noOfNotes += 1;
                 }
 
             }else{
+                // Creates a notes file if successful, otherwise informs you there's an error
                 if(notesFile.createNewFile()){
                     println("Preparing for first time use...");
                     println("");
+                }else{
+                    println("Error creating a notes file. Please contact the author of the application.");
                 }
             }
-
-            // Sets the number of
 
         }catch(NullPointerException e){
             println("Error: Cannot find resources folder.");
@@ -121,14 +126,16 @@ public class Main {
     }
 
     private static void addNewNote(){
+        // Asks user for note name and contents and displays a preview
+
         System.out.print("Enter the note name: ");
         String newNoteName = input.nextLine();
         println("");
-        System.out.print("Enter note contents:");
+        System.out.print("Enter note contents: ");
         String newNoteContents = input.nextLine();
         Note newNote = new Note(newNoteName, newNoteContents);
         println("");
-        println("Note preview:");
+        println("Note preview: ");
         printBorder(newNote);
         println("");
         println(newNote.title);
@@ -137,7 +144,27 @@ public class Main {
         println(newNote.contents);
         printBorder(newNote);
 
+        // Asks if user wants to save or delete their note
+        // Save: saves to array
+        // Delete: deletes note reference
         println("");
+        println("[1] Save or [2] Delete?");
+        println("");
+        System.out.print(">> ");
+
+        choice = input.nextLine().toLowerCase();
+
+        if(choice.equals("1") || choice.contains("save")){
+            println("The note has been saved.");
+            notes.add(newNote);
+            newNote.save();
+        }else if(choice.equals("2") || choice.contains("delete")){
+            println("The note has not been saved.");
+            newNote = null;
+        }else{
+            println("Invalid choice. Cancelling...");
+        }
+
         println("[Press enter to exit]");
         input.nextLine();
         menu();
