@@ -6,8 +6,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static com.funtech.java.Main.println;
-import static com.funtech.java.Main.resourcePath;
+import static com.funtech.java.Main.*;
 
 class Note {
     String title;
@@ -34,11 +33,10 @@ class Note {
 
     void save(){
         try {
-            BufferedWriter noteSaver = new BufferedWriter(new FileWriter((resourcePath), true)); // true for append
+            BufferedWriter noteSaver = new BufferedWriter(new FileWriter((notesFile.getPath()), true)); // true for append
             noteSaver.write("<title>"+title+"</title>");
             noteSaver.newLine();
             noteSaver.write("<date>"+date+"</date>");
-            noteSaver.newLine();
             noteSaver.newLine();
             noteSaver.write("<content>"+contents+"</content>");
             noteSaver.newLine();

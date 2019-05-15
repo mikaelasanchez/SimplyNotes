@@ -16,7 +16,6 @@ public class Main {
     private static Scanner input = new Scanner(System.in);
     private static String choice;
     static File notesFile;
-    static String resourcePath;
 
 
     public static void main(String[] args) {
@@ -90,7 +89,7 @@ public class Main {
         // Collects the information about the number of notes and their contents
 
         try {
-            resourcePath = Main.class.getClassLoader().getResource("\\com\\funtech\\resources\\").getPath();
+            String resourcePath = Main.class.getClassLoader().getResource("\\com\\funtech\\resources\\").getPath();
 
             // .replace() makes sure the file is actually saved in a folder, instead of being named "...%5cnotes.txt"
             notesFile = new File(resourcePath.replace("%5c","/")+"notes.txt");
