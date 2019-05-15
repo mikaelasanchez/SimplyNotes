@@ -15,6 +15,9 @@ public class Main {
     private static List<Note> notes = new ArrayList<>();
     private static Scanner input = new Scanner(System.in);
     private static String choice;
+    static File notesFile;
+    static String resourcePath;
+
 
     public static void main(String[] args) {
         // Gets the number of notes and names of notes, and displays them to the user
@@ -87,10 +90,10 @@ public class Main {
         // Collects the information about the number of notes and their contents
 
         try {
-            String resourcePath = Main.class.getClassLoader().getResource("\\com\\funtech\\resources\\").getPath();
+            resourcePath = Main.class.getClassLoader().getResource("\\com\\funtech\\resources\\").getPath();
 
             // .replace() makes sure the file is actually saved in a folder, instead of being named "...%5cnotes.txt"
-            File notesFile = new File(resourcePath.replace("%5c","/")+"notes.txt");
+            notesFile = new File(resourcePath.replace("%5c","/")+"notes.txt");
 
             // Checks if the notes file exists.
             if(notesFile.isFile()) {
@@ -136,13 +139,7 @@ public class Main {
         Note newNote = new Note(newNoteName, newNoteContents);
         println("");
         println("Note preview: ");
-        printBorder(newNote);
-        println("");
-        println(newNote.title);
-        println(newNote.date);
-        println("");
-        println(newNote.contents);
-        printBorder(newNote);
+        printPreview(newNote);
 
         // Asks if user wants to save or delete their note
         // Save: saves to array
@@ -159,7 +156,7 @@ public class Main {
             notes.add(newNote);
             newNote.save();
         }else if(choice.equals("2") || choice.contains("delete")){
-            println("The note has not been saved.");
+            println("The note has been deleted.");
             newNote = null;
         }else{
             println("Invalid choice. Cancelling...");
@@ -201,6 +198,17 @@ public class Main {
     static void println(Object text){
         System.out.println(text);
     }
+
+    private static void printPreview(Note note) {
+        printBorder(note);
+        println("");
+        println(note.title);
+        println(note.date);
+        println("");
+        println(note.contents);
+        printBorder(note);
+    }
+
     private static void printBorder(Note note){
         for(int i=0;i<note.contents.length() || i<note.date.length();i++){System.out.print("=");}
     }
