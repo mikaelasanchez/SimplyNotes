@@ -4,8 +4,9 @@ Key:
 
 {General}
 
-* create README.md
+- create README.md
 * switch to troubleshooting mode
+- decide on tags for notes.txt: <title> <date> <content>
 
 {Functions}
 
@@ -57,8 +58,8 @@ Note.toString():
 - return title of note
 
 Note.save():
-* use note information for saving to txt file
-* write to notes.txt file
+- use note information for saving to txt file
+- write to notes.txt file
 
 Note.delete():
 * find corresponding note info (perhaps search for the string surrounded by the tag)
