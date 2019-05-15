@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
  */
 
 public class Main {
-    // Initialises the variables for the number of notes, list of note names, user input and input scanner
+    // Initialises the variables for the number of notes, list of notes, user input and input scanner
     private static int noOfNotes;
     private static List<Note> notes = new ArrayList<>();
     private static Scanner input = new Scanner(System.in);
@@ -20,6 +20,15 @@ public class Main {
 
 
     public static void main(String[] args) {
+
+        // Sets the file where note data will be stored
+        try {
+            String resourcePath = Main.class.getClassLoader().getResource("\\com\\funtech\\resources\\").getPath();
+            notesFile = new File(resourcePath.replace("%5c","/")+"notes.txt");
+        }catch(NullPointerException e) {
+            println("Error: Cannot find resources folder.");
+        }
+
         // Gets the number of notes and names of notes, and displays them to the user
         getNotes();
         println("Welcome to SimplyNotes.");
@@ -31,7 +40,7 @@ public class Main {
         if(noOfNotes>0){
             println("Notes:");
             for (Note note:notes){
-                println(note!=null ? note:"-"); // If there is no note, display it as "-"
+                println(note);
             }
             println("");
             menu();
@@ -89,12 +98,10 @@ public class Main {
     private static void getNotes(){
         // Collects the information about the number of notes and their contents
 
+        noOfNotes = 0; // Sets number to 0 to recount number of notes
+        notes.clear();
+
         try {
-            String resourcePath = Main.class.getClassLoader().getResource("\\com\\funtech\\resources\\").getPath();
-
-            // .replace() makes sure the file is actually saved in a folder, instead of being named "...%5cnotes.txt"
-            notesFile = new File(resourcePath.replace("%5c","/")+"notes.txt");
-
             // Checks if the notes file exists.
             if(notesFile.isFile()) {
 
@@ -135,9 +142,6 @@ public class Main {
                     println("Error creating a notes file. Please contact the author of the application.");
                 }
             }
-
-        }catch(NullPointerException e){
-            println("Error: Cannot find resources folder.");
         }
         catch(IOException e){
             println("Error: Cannot find notes file.");
@@ -193,8 +197,55 @@ public class Main {
     }
 
     private static void readNote(){
-        println("Reading note...");
+        getNotes();
+        println("Which note would you like to open?");
+        println("");
 
+        // Create an array to gather note names
+        List<String> noteTitles = new ArrayList<>();
+
+        // List available notes for choosing and ask user for choice
+        if(noOfNotes>0){
+            println("Notes:");
+            for (int i=0;i<noOfNotes;i++){
+                // Gather note name
+                noteTitles.add(notes.get(i).toString().toLowerCase());
+                // Display note
+                System.out.print("["+(i+1)+"] ");
+                println(notes.get(i));
+            }
+            println("");
+            System.out.print(">> ");
+
+            choice = input.nextLine().toLowerCase();
+            int choiceAsInt = 0;
+            boolean choiceIsInt;
+
+            // Try to parse the choice as an int. It successful, set choiceIsInt true
+            try{
+                choiceAsInt = Integer.parseInt(choice);
+                choiceIsInt = true;
+            }catch(NumberFormatException e){
+                choiceIsInt = false;
+            }
+
+            // Preview note depending on whether the choice is a number or a title
+            // Ternary operator makes sure user chooses within the correct range
+            // If not, it will display the first note
+
+            if(choiceIsInt) {
+                Note selectedNote = notes.get((choiceAsInt>0&&choiceAsInt<=noOfNotes) ? choiceAsInt-1:0);
+                printPreview(selectedNote);
+            }else if(noteTitles.contains(choice)){
+                Note selectedNote = notes.get(noteTitles.indexOf(choice));
+                printPreview(selectedNote);
+                noteTitles.clear();
+            }else{
+                println("Invalid choice. Cancelling...");
+            }
+        }else{
+            println("You have no notes");
+        }
         println("");
         println("[Press enter to exit]");
         input.nextLine();
