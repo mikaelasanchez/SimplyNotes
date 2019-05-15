@@ -34,6 +34,18 @@ public class Main {
             notesFile = new File(resourcePath.replace("%5c","/")+"notes.txt");
         }catch(NullPointerException e) {
             println("Error: Cannot find resources folder.");
+            println("Creating resources folder...");
+
+            try{
+                String resourcePath = Main.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+                File resourceFolder = new File(resourcePath+"/com/funtech/resources/");
+                println((resourceFolder.mkdirs())?"Success!":"Could not create folder.");
+            }catch(Exception e2){
+                println("Error: Unable to create resources folder.");
+            }finally{
+                String resourcePath = Main.class.getClassLoader().getResource("\\com\\funtech\\resources\\").getPath();
+                notesFile = new File(resourcePath.replace("%5c","/")+"notes.txt");
+            }
         }
 
         // Gets the number of notes and names of notes, and displays them to the user
@@ -190,7 +202,7 @@ public class Main {
             println("Invalid choice. Cancelling...");
         }
 
-        println("[Press enter to exit]");
+        println("[Press enter to return to menu]");
         input.nextLine();
         menu();
     }
@@ -286,7 +298,7 @@ public class Main {
         }
 
         println("");
-        println("[Press enter to exit]");
+        println("[Press enter to return to menu]");
         input.nextLine();
         menu();
     }
@@ -343,7 +355,7 @@ public class Main {
             println("You have no notes.");
         }
         println("");
-        println("[Press enter to exit]");
+        println("[Press enter to return to menu]");
         input.nextLine();
         menu();
     }
@@ -381,7 +393,7 @@ public class Main {
         }
 
         println("");
-        println("[Press enter to exit]");
+        println("[Press enter to return to menu]");
         input.nextLine();
         menu();
     }
