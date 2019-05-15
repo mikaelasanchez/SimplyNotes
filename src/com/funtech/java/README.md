@@ -6,3 +6,7 @@ In order to use this application, you must:
 
 If you run into any problems, please contact the author Mikaela at:<br>
 mikaelaysanchez@gmail.com
+
+#FAQ
+Q: Are the note titles case-sensitive?<br>
+A: No, you have to make sure you do not give notes the same titles
