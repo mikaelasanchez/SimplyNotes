@@ -6,8 +6,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static com.funtech.java.Main.notesFile;
-import static com.funtech.java.Main.println;
+import static com.funtech.java.Main.*;
 
 /**
  * Note class
@@ -45,13 +44,25 @@ class Note implements Comparable<Note>{
             noteSaver.write(contents+parse);
             noteSaver.write("--end of note--");
             noteSaver.close();
-        }catch(IOException e){
+        }catch (IOException e) {
             println("Error: Cannot save the note.");
         }
     }
 
-    static void delete(){
+    void delete(){
+        String toRemove = getTitle()+"<parse>"+getDate()+"<parse>"+getContents()+"<parse>";
+        notesFromTxt.remove(toRemove);
 
+        // Rewrites entire notes.txt file, without the removed note
+        try {
+            BufferedWriter noteWriter = new BufferedWriter(new FileWriter((notesFile.getPath()), false)); // false to replace
+            for(String note:notesFromTxt){
+                noteWriter.write(note+"--end of note--");
+            }
+            noteWriter.close();
+        }catch (IOException e) {
+            println("Error: Cannot delete the note.");
+        }
     }
 
     String getTitle() {

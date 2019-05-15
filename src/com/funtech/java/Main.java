@@ -22,6 +22,7 @@ public class Main {
     private static List<Note> notes = new ArrayList<>();
     private static Scanner input = new Scanner(System.in);
     private static String choice;
+    static List<String> notesFromTxt;
     static File notesFile;
 
 
@@ -114,13 +115,13 @@ public class Main {
                 // If it does exist, read the file and separate each note
                 Scanner fileScanner = new Scanner(notesFile);
 
-                List<String> notesFromTxt = new ArrayList<>();
+                notesFromTxt = new ArrayList<>();
 
                 // Add every note to the notesFromTxt arraylist and add 1 to number of notes
                 while(fileScanner.hasNext()){
                     fileScanner.useDelimiter("--end of note--");
                     notesFromTxt.add(noOfNotes, fileScanner.next());
-                    noOfNotes += 1;
+                    noOfNotes++;
                 }
 
                 // Parse each individual note and turn the data into a Note object
@@ -181,6 +182,7 @@ public class Main {
             println("The note has been saved.");
             notes.add(newNote);
             newNote.save();
+            noOfNotes++;
         }else if(choice.equals("2") || choice.contains("delete")){
             println("The note has been deleted.");
             newNote = null;
@@ -193,8 +195,95 @@ public class Main {
         menu();
     }
 
+    @SuppressWarnings("Duplicates")
     private static void deleteNote(){
-        println("Deleting note...");
+        println("Which note would you like to delete?");
+        println("");
+
+        // Create an array to gather note names
+        List<String> noteTitles = new ArrayList<>();
+
+        // List available notes for choosing and ask user for choice
+        if(noOfNotes>0){
+            println("Notes:");
+            for (int i=0;i<noOfNotes;i++){
+                // Gather note name
+                noteTitles.add(notes.get(i).toString().toLowerCase());
+                // Display note
+                System.out.print("["+(i+1)+"] ");
+                println(notes.get(i));
+            }
+
+            println("");
+            System.out.print(">> ");
+
+            choice = input.nextLine().toLowerCase();
+            int choiceAsInt = 0;
+            boolean choiceIsInt;
+
+            // Try to parse the choice as an int. It successful, set choiceIsInt true
+            try{
+                choiceAsInt = Integer.parseInt(choice);
+                choiceIsInt = true;
+            }catch(NumberFormatException e){
+                choiceIsInt = false;
+            }
+
+            // Delete note depending on whether the choice is a number or a title
+            // If statement makes sure user chooses within the correct range
+            // If not, it will cancel the deletion.
+
+            if(choiceIsInt&&choiceAsInt>0&&choiceAsInt<=noOfNotes) {
+                    Note selectedNote = notes.get(choiceAsInt-1);
+
+                // Asks for confirmation that the user wants to delete the note
+                println("");
+                println("[1] Delete or [2] Cancel?");
+                println("");
+                System.out.print(">> ");
+
+                choice = input.nextLine().toLowerCase();
+
+                if(choice.equals("1") || choice.contains("delete")){
+                    println("The note has been deleted.");
+                    notes.remove(selectedNote);
+                    selectedNote.delete();
+                    noOfNotes--;
+                }else if(choice.equals("2") || choice.contains("cancel")){
+                    println("Cancelling...");
+                }else{
+                    println("Invalid choice. Cancelling...");
+                }
+
+            }else if(noteTitles.contains(choice)){
+                Note selectedNote = notes.get(noteTitles.indexOf(choice));
+
+                // Asks for confirmation that the user wants to delete the note
+                println("");
+                println("[1] Delete or [2] Cancel?");
+                println("");
+                System.out.print(">> ");
+
+                choice = input.nextLine().toLowerCase();
+
+                if(choice.equals("1") || choice.contains("delete")){
+                    println("The note has been deleted.");
+                    notes.remove(selectedNote);
+                    selectedNote.delete();
+                    noOfNotes--;
+                }else if(choice.equals("2") || choice.contains("cancel")){
+                    println("Cancelling...");
+                }else{
+                    println("Invalid choice. Cancelling...");
+                }
+            }else{
+                println("Invalid choice. Cancelling...");
+            }
+            // Clears array to save memory
+            noteTitles.clear();
+        }else{
+            println("You have no notes.");
+        }
 
         println("");
         println("[Press enter to exit]");
@@ -202,8 +291,8 @@ public class Main {
         menu();
     }
 
+    @SuppressWarnings("Duplicates")
     private static void readNote(){
-        getNotes();
         println("Which note would you like to open?");
         println("");
 
@@ -245,10 +334,11 @@ public class Main {
             }else if(noteTitles.contains(choice)){
                 Note selectedNote = notes.get(noteTitles.indexOf(choice));
                 printPreview(selectedNote);
-                noteTitles.clear();
             }else{
                 println("Invalid choice. Cancelling...");
             }
+            // Clears array to save memory
+            noteTitles.clear();
         }else{
             println("You have no notes.");
         }
@@ -259,6 +349,7 @@ public class Main {
     }
 
     private static void sortNotes(){
+        getNotes();
         println("Notes:");
 
         // Lists notes

@@ -8,6 +8,7 @@ Key:
 * switch to troubleshooting mode
 - decide on tags for notes.txt: |parse|
 - add documentation
+- keep notes sorted after sorting
 
 {Functions}
 
@@ -30,15 +31,16 @@ addNewNote():
 - asks for confirmation
 - adds note to arrayList of notes
 - saves the note to txt file using Note.save()
+- increase number of notes
 
 deleteNote():
-* gets notes from getNotes()
-* display the available notes
-* ask for user to choose
-* ask for confirmation
-* remove from the notes arrayList
-* call Note.delete() on the note
-* decrease number of notes
+- gets notes from getNotes()
+- display the available notes
+- ask for user to choose
+- ask for confirmation
+- remove from the notes arrayList
+- call Note.delete() on the note
+- decrease number of notes
 
 readNote():
 - gets notes from getNotes()
@@ -63,5 +65,5 @@ Note.save():
 - write to notes.txt file
 
 Note.delete():
-* find corresponding note info (perhaps search for the string surrounded by the tag)
-* remove all info by replacing data with empty string
+- find corresponding note info (perhaps search for the string surrounded by the tag)
+- remove all info by replacing data with empty string
