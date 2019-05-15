@@ -1,4 +1,6 @@
 package com.funtech.java;
+
+//import statements
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,8 +9,11 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 /**
- *  Note taking console application created by Mikaela Sanchez
- *  For the Funtech Interview process
+ *  Note taking console application for the Funtech Interview process
+ *
+ * @author Mikaela Sanchez
+ * @version 1.0
+ *
  */
 
 public class Main {
@@ -305,6 +310,11 @@ public class Main {
         printBorder(note);
     }
 
+    /**
+     * Prints a border according to size of the note
+     *
+     * @param note The note the border size will be based on
+     */
     private static void printBorder(Note note){
         for(int i=0;i<note.getContents().length() || i<note.getDate().length();i++){System.out.print("=");}
     }

@@ -6,7 +6,14 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static com.funtech.java.Main.*;
+import static com.funtech.java.Main.notesFile;
+import static com.funtech.java.Main.println;
+
+/**
+ * Note class
+ * Stores information about individual notes
+ * Implements Comparable to allow comparison with other notes
+ */
 
 class Note implements Comparable<Note>{
     private String title;
@@ -28,6 +35,8 @@ class Note implements Comparable<Note>{
     }
 
     void save(){
+        // Try to write note information into the note.txt file
+        // Otherwise, let user know the note could not be saved
         try {
             BufferedWriter noteSaver = new BufferedWriter(new FileWriter((notesFile.getPath()), true)); // true for append
             String parse = "<parse>";
@@ -66,6 +75,13 @@ class Note implements Comparable<Note>{
         return this.title;
     }
 
+    /**Allows notes to be compared by their titles lexicographically
+     *
+     * @param note The other note that this note will be compared to
+     * @return If return<0, the note is lexicographically smaller
+     *         If return=0, the note is lexicographically the same
+     *         If return>0, the note is lexicographically larger
+     */
     @Override
     public int compareTo(Note note) {
         return Integer.compare(this.getTitle().compareTo(note.getTitle()), 0);
