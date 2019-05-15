@@ -1,6 +1,7 @@
 package com.funtech.java;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -129,7 +130,7 @@ public class Main {
 
                     // Adds information about imported note into new note object
                     Note newNote = new Note(title, content);
-                    newNote.date = date;
+                    newNote.setDate(date);
                     notes.add(newNote);
                 }
 
@@ -244,7 +245,7 @@ public class Main {
                 println("Invalid choice. Cancelling...");
             }
         }else{
-            println("You have no notes");
+            println("You have no notes.");
         }
         println("");
         println("[Press enter to exit]");
@@ -253,7 +254,35 @@ public class Main {
     }
 
     private static void sortNotes(){
-        println("Sorting notes...");
+        println("Notes:");
+
+        // Lists notes
+        if(noOfNotes>0){
+            for(Note note:notes){
+                println(note);
+            }
+            println("");
+
+            // Sort notes. Add ellipsis for dramatic effect.
+            Collections.sort(notes);
+            System.out.print("Sorting notes");
+
+            try{
+                Thread.sleep(1000);System.out.print(".");
+                Thread.sleep(1000);System.out.print(".");
+                Thread.sleep(1000);println(".");
+            }catch(InterruptedException e){
+                println("...");
+            }
+            println("");
+
+            // Prints sorted note list
+            for(Note note:notes){
+                println(note);
+            }
+        }else{
+            println("You have no notes.");
+        }
 
         println("");
         println("[Press enter to exit]");
@@ -269,14 +298,14 @@ public class Main {
     private static void printPreview(Note note) {
         printBorder(note);
         println("");
-        println(note.title);
-        println(note.date);
+        println(note.getTitle());
+        println(note.getDate());
         println("");
-        println(note.contents);
+        println(note.getContents());
         printBorder(note);
     }
 
     private static void printBorder(Note note){
-        for(int i=0;i<note.contents.length() || i<note.date.length();i++){System.out.print("=");}
+        for(int i=0;i<note.getContents().length() || i<note.getDate().length();i++){System.out.print("=");}
     }
 }

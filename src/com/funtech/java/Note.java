@@ -8,10 +8,10 @@ import java.util.Date;
 
 import static com.funtech.java.Main.*;
 
-class Note {
-    String title;
-    String date;
-    String contents;
+class Note implements Comparable<Note>{
+    private String title;
+    private String date;
+    private String contents;
 
     Note(String title, String contents){
         this.title = title;
@@ -25,10 +25,6 @@ class Note {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         Date date = new Date();
         this.date = dateFormat.format(date);
-    }
-
-    public String toString(){
-        return this.title;
     }
 
     void save(){
@@ -47,5 +43,31 @@ class Note {
 
     static void delete(){
 
+    }
+
+    String getTitle() {
+        return title;
+    }
+
+    String getDate(){
+        return date;
+    }
+
+    void setDate(String date) {
+        this.date = date;
+    }
+
+    String getContents(){
+        return contents;
+    }
+
+    @Override
+    public String toString(){
+        return this.title;
+    }
+
+    @Override
+    public int compareTo(Note note) {
+        return Integer.compare(this.getTitle().compareTo(note.getTitle()), 0);
     }
 }

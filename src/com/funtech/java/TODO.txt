@@ -46,10 +46,10 @@ readNote():
 - displays all information about note (perhaps use preview from addNewNote())
 
 sortNotes():
-* gets notes from getNotes()
-* display the available notes
-* say they're being sorted
-* display sorted notes
+- gets notes from getNotes()
+- display the available notes
+- say they're being sorted
+- display sorted notes
 
 
 {Note Class}
