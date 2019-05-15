@@ -3,6 +3,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 /**
  *  Note taking console application created by Mikaela Sanchez
@@ -107,6 +108,19 @@ public class Main {
                 if(fileScanner.hasNext()){
                     notesFromTxt.add(fileScanner.next());
                     noOfNotes += 1;
+                }
+
+                for(String note:notesFromTxt){
+                    String parseString = "<parse>\\s";
+                    Pattern parsePattern = Pattern.compile(parseString);
+                    String[] noteData = parsePattern.split(note);
+
+                    String title = noteData[0];
+                    String date = noteData[1];
+                    String content = noteData[2];
+
+                    Note newNote = new Note(title, content);
+                    newNote.date = date;
                 }
 
             }else{

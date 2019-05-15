@@ -34,11 +34,12 @@ class Note {
     void save(){
         try {
             BufferedWriter noteSaver = new BufferedWriter(new FileWriter((notesFile.getPath()), true)); // true for append
-            noteSaver.write("<title>"+title+"</title>");
+            String parse = "<parse>";
+            noteSaver.write(title+parse);
             noteSaver.newLine();
-            noteSaver.write("<date>"+date+"</date>");
+            noteSaver.write(date+parse);
             noteSaver.newLine();
-            noteSaver.write("<content>"+contents+"</content>");
+            noteSaver.write(contents+parse);
             noteSaver.newLine();
             noteSaver.write("--end of note--");
             noteSaver.close();
@@ -48,10 +49,6 @@ class Note {
     }
 
     static void delete(){
-
-    }
-
-    static void read(){
 
     }
 }

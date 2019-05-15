@@ -6,7 +6,7 @@ Key:
 
 - create README.md
 * switch to troubleshooting mode
-- decide on tags for notes.txt: <title> <date> <content>
+- decide on tags for notes.txt: |parse|
 
 {Functions}
 
@@ -16,8 +16,8 @@ getNotes():
 - separate with delimiter
 - put in arrayList
 - add to number of notes var for each note
-* use regex to extract note info
-* turn into notes files
+- use regex to extract note info
+- turn into notes files
 * add to notes arrayList
 - creates notes.txt when not available
 - handle exceptions
@@ -64,6 +64,3 @@ Note.save():
 Note.delete():
 * find corresponding note info (perhaps search for the string surrounded by the tag)
 * remove all info by replacing data with empty string
-
-Note.read():
-* return content of note
