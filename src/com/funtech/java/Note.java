@@ -36,11 +36,8 @@ class Note {
             BufferedWriter noteSaver = new BufferedWriter(new FileWriter((notesFile.getPath()), true)); // true for append
             String parse = "<parse>";
             noteSaver.write(title+parse);
-            noteSaver.newLine();
             noteSaver.write(date+parse);
-            noteSaver.newLine();
             noteSaver.write(contents+parse);
-            noteSaver.newLine();
             noteSaver.write("--end of note--");
             noteSaver.close();
         }catch(IOException e){

@@ -100,18 +100,19 @@ public class Main {
 
                 // If it does exist, read the file and separate each note
                 Scanner fileScanner = new Scanner(notesFile);
-                fileScanner.useDelimiter("--end of note--");
 
                 List<String> notesFromTxt = new ArrayList<>();
 
                 // Add every note to the notesFromTxt arraylist and add 1 to number of notes
-                if(fileScanner.hasNext()){
-                    notesFromTxt.add(fileScanner.next());
+                while(fileScanner.hasNext()){
+                    fileScanner.useDelimiter("--end of note--");
+                    notesFromTxt.add(noOfNotes, fileScanner.next());
                     noOfNotes += 1;
                 }
 
+                // Parse each individual note and turn the data into a Note object
                 for(String note:notesFromTxt){
-                    String parseString = "<parse>\\s";
+                    String parseString = "<parse>";
                     Pattern parsePattern = Pattern.compile(parseString);
                     String[] noteData = parsePattern.split(note);
 
@@ -119,8 +120,10 @@ public class Main {
                     String date = noteData[1];
                     String content = noteData[2];
 
+                    // Adds information about imported note into new note object
                     Note newNote = new Note(title, content);
                     newNote.date = date;
+                    notes.add(newNote);
                 }
 
             }else{

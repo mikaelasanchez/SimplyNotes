@@ -18,7 +18,7 @@ getNotes():
 - add to number of notes var for each note
 - use regex to extract note info
 - turn into notes files
-* add to notes arrayList
+- add to notes arrayList
 - creates notes.txt when not available
 - handle exceptions
 * make sure it works with all other functions
