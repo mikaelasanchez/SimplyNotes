@@ -7,7 +7,7 @@ Key:
 - create README.md
 * switch to troubleshooting mode
 - decide on tags for notes.txt: |parse|
-- add documentation
+* add more documentation
 - keep notes sorted after sorting
 * create jar file
 

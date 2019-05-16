@@ -1,6 +1,6 @@
 package com.funtech.java;
 
-//import statements
+// import statements
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,7 +30,10 @@ public class Main {
 
         String resourcePath;
 
-        // Sets the file where note data will be stored
+        /* Sets the file where note data will be stored
+         * If there is no folder, catch exception and attempt to create a folder
+         * Then attempt to set the file, otherwise catch exception
+         */
         try {
             resourcePath = Main.class.getClassLoader().getResource("\\com\\funtech\\resources\\").getPath();
             notesFile = new File(resourcePath.replace("%5c","/")+"notes.txt");
@@ -42,6 +45,7 @@ public class Main {
                 resourcePath = Main.class.getProtectionDomain().getCodeSource().getLocation().getPath();
                 File resourceFolder = new File(resourcePath+"/com/funtech/resources/");
                 println((resourceFolder.mkdirs())?"Success!":"Could not create folder.");
+
                 resourcePath = Main.class.getClassLoader().getResource("\\com\\funtech\\resources\\").getPath();
                 notesFile = new File(resourcePath.replace("%5c","/")+"notes.txt");
             }catch(Exception e2){
@@ -49,14 +53,14 @@ public class Main {
             }
         }
 
-        // Gets the number of notes and names of notes, and displays them to the user
+        /* Gets the number of notes and names of notes, and displays them to the user */
         getNotes();
         println("Welcome to SimplyNotes.");
         System.out.format("You have %d notes.", noOfNotes);
         println("");
         println("");
 
-        // Checks if there are any notes. If there are, list them and call the menu.
+        /* Checks if there are any notes. If there are, list them and call the menu. */
         if(noOfNotes>0){
             println("Notes:");
             for (Note note:notes){
@@ -65,8 +69,9 @@ public class Main {
             println("");
             menu();
         }else{
-            // If there are no notes, ask if the user wants to add a new one.
-            // Otherwise, call the menu.
+            /* If there are no notes, ask if the user wants to add a new one.
+             * Otherwise, call the menu.
+             */
             println("Would you like to add a new note?");
             println("[1] Yes");
             println("[2] No");
@@ -84,7 +89,7 @@ public class Main {
     }
 
     private static void menu(){
-        // Asks the user for instructions
+        /* Asks the user for instructions */
         println("What would you like to do?");
         println("[1] Add a new note");
         println("[2] Delete a note");
@@ -96,7 +101,7 @@ public class Main {
         choice = input.nextLine().toLowerCase();
         println("");
 
-        // If statement to handle the user's choice
+        /* If statement to handle the user's choice */
         if(choice.equals("1") || choice.contains("add")){
             addNewNote();
         }else if(choice.equals("2") || choice.contains("delete")){
@@ -116,28 +121,28 @@ public class Main {
     }
 
     private static void getNotes(){
-        // Collects the information about the number of notes and their contents
+        /* Collects the information about the number of notes and their contents */
 
         noOfNotes = 0; // Sets number to 0 to recount number of notes
         notes.clear();
 
         try {
-            // Checks if the notes file exists.
+            /* Checks if the notes file exists. */
             if(notesFile.isFile()) {
 
-                // If it does exist, read the file and separate each note
+                /* If it does exist, read the file and separate each note */
                 Scanner fileScanner = new Scanner(notesFile);
 
                 notesFromTxt = new ArrayList<>();
 
-                // Add every note to the notesFromTxt arraylist and add 1 to number of notes
+                /* Add every note to the notesFromTxt array list and add 1 to number of notes */
                 while(fileScanner.hasNext()){
                     fileScanner.useDelimiter("--end of note--");
                     notesFromTxt.add(noOfNotes, fileScanner.next());
                     noOfNotes++;
                 }
 
-                // Parse each individual note and turn the data into a Note object
+                /* Parse each individual note and turn the data into a Note object */
                 for(String note:notesFromTxt){
                     String parseString = "<parse>";
                     Pattern parsePattern = Pattern.compile(parseString);
@@ -147,14 +152,14 @@ public class Main {
                     String date = noteData[1];
                     String content = noteData[2];
 
-                    // Adds information about imported note into new note object
+                    /* Adds information about imported note into new note object */
                     Note newNote = new Note(title, content);
                     newNote.setDate(date);
                     notes.add(newNote);
                 }
 
             }else{
-                // Creates a notes file if successful, otherwise informs you there's an error
+                /* Creates a notes file if successful, otherwise informs you there's an error */
                 if(notesFile.createNewFile()){
                     println("Preparing for first time use...");
                     println("");
@@ -169,7 +174,7 @@ public class Main {
     }
 
     private static void addNewNote(){
-        // Asks user for note name and contents and displays a preview
+        /* Asks user for note name and contents and displays a preview */
 
         System.out.print("Enter the note name: ");
         String newNoteName = input.nextLine();
@@ -181,9 +186,10 @@ public class Main {
         println("Note preview: ");
         printPreview(newNote);
 
-        // Asks if user wants to save or delete their note
-        // Save: saves to array
-        // Delete: deletes note reference
+        /* Asks if user wants to save or delete their note
+         * Save: saves to array
+         * Delete: deletes note reference
+        */
         println("");
         println("[1] Save or [2] Delete?");
         println("");
@@ -213,16 +219,16 @@ public class Main {
         println("Which note would you like to delete?");
         println("");
 
-        // Create an array to gather note names
+        /* Create an array to gather note names */
         List<String> noteTitles = new ArrayList<>();
 
-        // List available notes for choosing and ask user for choice
+        /* List available notes for choosing and ask user for choice */
         if(noOfNotes>0){
             println("Notes:");
             for (int i=0;i<noOfNotes;i++){
-                // Gather note name
+                /* Gather note name */
                 noteTitles.add(notes.get(i).toString().toLowerCase());
-                // Display note
+                /* Display note */
                 System.out.print("["+(i+1)+"] ");
                 println(notes.get(i));
             }
@@ -234,7 +240,7 @@ public class Main {
             int choiceAsInt = 0;
             boolean choiceIsInt;
 
-            // Try to parse the choice as an int. It successful, set choiceIsInt true
+            /* Try to parse the choice as an int. It successful, set choiceIsInt true */
             try{
                 choiceAsInt = Integer.parseInt(choice);
                 choiceIsInt = true;
@@ -242,14 +248,15 @@ public class Main {
                 choiceIsInt = false;
             }
 
-            // Delete note depending on whether the choice is a number or a title
-            // If statement makes sure user chooses within the correct range
-            // If not, it will cancel the deletion.
+            /* Delete note depending on whether the choice is a number or a title
+             * If statement makes sure user chooses within the correct range
+             * If not, it will cancel the deletion.
+            */
 
             if(choiceIsInt&&choiceAsInt>0&&choiceAsInt<=noOfNotes) {
                     Note selectedNote = notes.get(choiceAsInt-1);
 
-                // Asks for confirmation that the user wants to delete the note
+                /* Asks for confirmation that the user wants to delete the note */
                 println("");
                 println("[1] Delete or [2] Cancel?");
                 println("");
@@ -271,7 +278,7 @@ public class Main {
             }else if(noteTitles.contains(choice)){
                 Note selectedNote = notes.get(noteTitles.indexOf(choice));
 
-                // Asks for confirmation that the user wants to delete the note
+                /* Asks for confirmation that the user wants to delete the note */
                 println("");
                 println("[1] Delete or [2] Cancel?");
                 println("");
@@ -292,8 +299,7 @@ public class Main {
             }else{
                 println("Invalid choice. Cancelling...");
             }
-            // Clears array to save memory
-            noteTitles.clear();
+            noteTitles.clear(); // Clears array to save memory
         }else{
             println("You have no notes.");
         }
@@ -309,16 +315,16 @@ public class Main {
         println("Which note would you like to open?");
         println("");
 
-        // Create an array to gather note names
+        /* Create an array to gather note names */
         List<String> noteTitles = new ArrayList<>();
 
-        // List available notes for choosing and ask user for choice
+        /* List available notes for choosing and ask user for choice */
         if(noOfNotes>0){
             println("Notes:");
             for (int i=0;i<noOfNotes;i++){
-                // Gather note name
+                /* Gather note name */
                 noteTitles.add(notes.get(i).toString().toLowerCase());
-                // Display note
+                /* Display note */
                 System.out.print("["+(i+1)+"] ");
                 println(notes.get(i));
             }
@@ -337,9 +343,10 @@ public class Main {
                 choiceIsInt = false;
             }
 
-            // Preview note depending on whether the choice is a number or a title
-            // Ternary operator makes sure user chooses within the correct range
-            // If not, it will display the first note
+            /* Preview note depending on whether the choice is a number or a title
+             * Ternary operator makes sure user chooses within the correct range
+             * If not, it will display the first note
+            */
 
             if(choiceIsInt) {
                 Note selectedNote = notes.get((choiceAsInt>0&&choiceAsInt<=noOfNotes) ? choiceAsInt-1:0);
@@ -350,8 +357,7 @@ public class Main {
             }else{
                 println("Invalid choice. Cancelling...");
             }
-            // Clears array to save memory
-            noteTitles.clear();
+            noteTitles.clear(); // Clears array to save memory
         }else{
             println("You have no notes.");
         }
@@ -365,27 +371,27 @@ public class Main {
         getNotes();
         println("Notes:");
 
-        // Lists notes
+        /* Lists notes */
         if(noOfNotes>0){
             for(Note note:notes){
                 println(note);
             }
             println("");
 
-            // Sort notes. Add ellipsis for dramatic effect.
+            /* Sort notes. Add ellipsis for dramatic effect. */
             Collections.sort(notes);
             System.out.print("Sorting notes");
 
             try{
-                Thread.sleep(1000);System.out.print(".");
-                Thread.sleep(1000);System.out.print(".");
-                Thread.sleep(1000);println(".");
+                Thread.sleep(500);System.out.print(".");
+                Thread.sleep(500);System.out.print(".");
+                Thread.sleep(500);println(".");
             }catch(InterruptedException e){
                 println("...");
             }
             println("");
 
-            // Prints sorted note list
+            /* Prints sorted note list */
             for(Note note:notes){
                 println(note);
             }
@@ -399,11 +405,12 @@ public class Main {
         menu();
     }
 
-    // Saves time from writing System.out.println()
+    /* Saves time from writing System.out.println() */
     static void println(Object text){
         System.out.println(text);
     }
 
+    /* Displays the note */
     private static void printPreview(Note note) {
         printBorder(note);
         println("");
@@ -414,11 +421,7 @@ public class Main {
         printBorder(note);
     }
 
-    /**
-     * Prints a border according to size of the note
-     *
-     * @param note The note the border size will be based on
-     */
+    /* Prints a border according to size of the note */
     private static void printBorder(Note note){
         for(int i=0;i<note.getContents().length() || i<note.getDate().length();i++){System.out.print("=");}
     }

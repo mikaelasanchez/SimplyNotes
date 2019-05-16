@@ -1,11 +1,12 @@
 package com.funtech.java;
+
+// import statements
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import static com.funtech.java.Main.*;
 
 /**
@@ -34,8 +35,9 @@ class Note implements Comparable<Note>{
     }
 
     void save(){
-        // Try to write note information into the note.txt file
-        // Otherwise, let user know the note could not be saved
+        /* Try to write note information into the note.txt file
+         * Otherwise, let user know the note could not be saved
+         */
         try {
             BufferedWriter noteSaver = new BufferedWriter(new FileWriter((notesFile.getPath()), true)); // true for append
             String parse = "<parse>";
@@ -53,7 +55,7 @@ class Note implements Comparable<Note>{
         String toRemove = getTitle()+"<parse>"+getDate()+"<parse>"+getContents()+"<parse>";
         notesFromTxt.remove(toRemove);
 
-        // Rewrites entire notes.txt file, without the removed note
+        /* Rewrites entire notes.txt file, without the removed note */
         try {
             BufferedWriter noteWriter = new BufferedWriter(new FileWriter((notesFile.getPath()), false)); // false to replace
             for(String note:notesFromTxt){
