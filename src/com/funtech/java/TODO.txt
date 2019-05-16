@@ -9,6 +9,7 @@ Key:
 - decide on tags for notes.txt: |parse|
 - add documentation
 - keep notes sorted after sorting
+* create jar file
 
 {Functions}
 

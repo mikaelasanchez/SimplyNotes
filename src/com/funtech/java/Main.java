@@ -28,23 +28,24 @@ public class Main {
 
     public static void main(String[] args) {
 
+        String resourcePath;
+
         // Sets the file where note data will be stored
         try {
-            String resourcePath = Main.class.getClassLoader().getResource("\\com\\funtech\\resources\\").getPath();
+            resourcePath = Main.class.getClassLoader().getResource("\\com\\funtech\\resources\\").getPath();
             notesFile = new File(resourcePath.replace("%5c","/")+"notes.txt");
         }catch(NullPointerException e) {
             println("Error: Cannot find resources folder.");
             println("Creating resources folder...");
 
             try{
-                String resourcePath = Main.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+                resourcePath = Main.class.getProtectionDomain().getCodeSource().getLocation().getPath();
                 File resourceFolder = new File(resourcePath+"/com/funtech/resources/");
                 println((resourceFolder.mkdirs())?"Success!":"Could not create folder.");
+                resourcePath = Main.class.getClassLoader().getResource("\\com\\funtech\\resources\\").getPath();
+                notesFile = new File(resourcePath.replace("%5c","/")+"notes.txt");
             }catch(Exception e2){
                 println("Error: Unable to create resources folder.");
-            }finally{
-                String resourcePath = Main.class.getClassLoader().getResource("\\com\\funtech\\resources\\").getPath();
-                notesFile = new File(resourcePath.replace("%5c","/")+"notes.txt");
             }
         }
 
