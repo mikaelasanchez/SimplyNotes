@@ -1,5 +1,11 @@
 # SimplyNotes
-This is a simple note taking console application for Funtech's interview process.
+This is a simple note taking console application for Funtech's interview process.<br>
+The application has the following features:
+1) Add notes with a title (date and time automatically recorded)
+2) Remove notes
+3) List and view available notes
+4) Sort notes alphabetically
+
 In order to use this application, you must:
 1) Compile the .java files by typing `javac Main.java Note.java` to your console
 2) Run the application by typing `java -classpath /path/ com.funtech.java.Main` to your console. <br>
