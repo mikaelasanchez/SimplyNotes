@@ -9,7 +9,7 @@ e.g. `java -classpath /d/Users/Name/SimplyNotes/src/ com.funtech.java.Main `
 If you run into any problems, please contact the author Mikaela at:<br>
 mikaelaysanchez@gmail.com
 
-#FAQ
+#FAQ<br>
 **Q:** Are the note titles case-sensitive?<br>
 **A:** No, the program recognises the note as long as you type the full title.
 
