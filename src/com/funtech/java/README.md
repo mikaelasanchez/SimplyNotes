@@ -1,8 +1,10 @@
 # SimplyNotes
 This is a simple note taking console application for Funtech's interview process.
 In order to use this application, you must:
-1) Compile the .java files by typing `javac Main.java` and `javac Note.java` to your console
-2) Run the application by typing `java Main` to your console
+1) Compile the .java files by typing `javac Main.java Note.java` to your console
+2) Run the application by typing `java -classpath /path/ com.funtech.java.Main` to your console. <br>
+e.g. `java -classpath /d/Users/Name/SimplyNotes/src/ com.funtech.java.Main `
+
 
 If you run into any problems, please contact the author Mikaela at:<br>
 mikaelaysanchez@gmail.com
