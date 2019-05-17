@@ -5,6 +5,8 @@ In order to use this application, you must:
 2) Run the application by typing `java -classpath /path/ com.funtech.java.Main` to your console. <br>
 e.g. `java -classpath /d/Users/Name/SimplyNotes/src/ com.funtech.java.Main `
 
+You can clone the github repository for this project by typing the following in your console:
+`git clone https://github.com/mikaelasanchez/SimplyNotes.git`
 
 If you run into any problems, please contact the author Mikaela at:<br>
 mikaelaysanchez@gmail.com
