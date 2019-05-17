@@ -10,6 +10,14 @@ Key:
 * add more documentation
 - keep notes sorted after sorting
 * create jar file
+- test every aspect of the program
+    - add a new note and cancel adding new note
+    - delete a note, cancel deleting a note, type invalid note name
+    - read different notes, type invalid note name
+    - test sort notes
+    - test exit
+    - test putting Main.class and Note.class in a directory without resources folder
+    - test different features on notes with same names
 
 {Functions}
 
