@@ -3,7 +3,7 @@
 by <a href="mailto:mikaelaysanchez@gmail.com">Mikaela Sanchez</a>
 
 ## Features
-This is a simple note taking console application for Funtech's interview process.<br>
+This is a simple note taking console application originally created as part of an interview process.<br>
 The application has the following features:
 1) Add notes with a title (date and time automatically recorded)
 2) Remove notes
